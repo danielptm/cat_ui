@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  height: 5rem;
+  background-color: darkgray;
+  color: black;
+  font-size: 2rem;
+  padding: 10px;
+}
+
+.headerImage {
+  height: 100%;
+}
+
+.headerText {
+  line-height: 2rem;
+}
+
+.routerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
