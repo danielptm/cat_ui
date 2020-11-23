@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {Project} from "../model/project";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-project',
@@ -8,23 +10,25 @@ import { Router } from '@angular/router';
 })
 export class ProjectComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
-  projects = [
-    {
-      projectName: 'project1',
-      projectUrl: 'github.com/danielptm'
-    },
-    {
-      projectName: 'project2',
-      projectUrl: 'github.com/danielptm'
-    }
-  ]
+  selectedProject: any;
+  projects: Project[]= [];
 
   ngOnInit(): void {
+    console.log('starting');
+    const x = this.http.get('project')
+      x.subscribe((response: any) => {
+        console.log('$$$$$$');
+        console.log(response);
+        this.projects = response;
+      }, e => {
+        console.log(e);
+      });
   }
 
-  select(i: number) {
-    console.log(i);
+
+  select(i: number){
+  // this.selectedProject = this.projects[i];
   }
 }

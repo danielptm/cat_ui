@@ -1,24 +1,26 @@
-<table class="tableContainer">
+<table class="tableContainer table">
+  <h2>Projects</h2>
   <tr class="headerRow">
-    <th>Project name</th>
+    <th id="zz">Project name</th>
     <th>Project URL</th>
     <th>Template values</th>
   </tr>
   <tr *ngFor="let project of projects; let i = index;">
-    <td>{{project.projectName}}</td>
+    <td id="proj-name-0">{{project.projectName}}</td>
     <td>{{project.projectUrl}}</td>
     <td><button (click)="select(i);">template items</button></td>
   </tr>
 </table>
 
-<table class="tableContainer">
+<table *ngIf="selectedProject" class="tableContainer table">
+  <h2>Template values</h2>
+  <h3>{{selectedProject.projectName}}</h3>
   <tr class="headerRow">
-    <th>Template name</th>
+    <th>Name</th>
     <th>Value</th>
   </tr>
-  <tr *ngFor="let project of projects;">
-    <td>{{project.projectName}}</td>
-    <td>{{project.projectUrl}}</td>
-    <td><button>template items</button></td>
+  <tr *ngFor="let template of selectedProject?.templateValues;">
+    <td>{{template.name}}</td>
+    <td>{{template.value}}</td>
   </tr>
 </table>
