@@ -13,20 +13,57 @@ export class ProjectComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient) { }
 
   selectedProject: any;
-  projects: Project[]= [];
+  projectsPersisted = [
+    {
+      projectName: 'project1',
+      projectUrl: 'github.com/project1',
+      edit: false,
+      templateValues: [
+        {
+          name: 'template_value_name_1',
+          value: 'template_value_1'
+        }
+      ]
+    },
+    {
+      projectName: 'project2',
+      projectUrl: 'github.com/project2',
+      edit: false,
+      templateValues: [
+        {
+          name: 'template_value_name_2',
+          value: 'template_value_2'
+        }
+      ]
+    }
+  ];
 
   ngOnInit(): void {
-    console.log('starting');
-    const x = this.http.get('project')
+    const x = this.http.get('project');
       x.subscribe((response: Project[]) => {
-        this.projects.push(response[0]);
+        this.projectsPersisted = response;
       }, e => {
-        console.log(e);
+        console.error(e);
       });
   }
 
 
-  select(i: number){
-  // this.selectedProject = this.projects[i];
+  select(i: number): void {
+    this.projectsPersisted.forEach(item => item.edit = false);
+    this.selectedProject = this.projectsPersisted[i];
+  }
+
+  edit(i: number) {
+    this.projectsPersisted.forEach(item => item.edit = false);
+    this.projectsPersisted[i].edit = !this.projectsPersisted[i].edit;
+    this.selectedProject = this.projectsPersisted[i];
+  }
+
+  create(): void {
+
+  }
+
+  update(): void {
+
   }
 }

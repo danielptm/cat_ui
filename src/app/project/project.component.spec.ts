@@ -30,28 +30,21 @@ describe('ProjectComponent', () => {
     fixture.detectChanges();
     service = TestBed.get(HttpClient);
     httpMock = TestBed.get(HttpTestingController);
-  });
 
-  afterEach(() => {
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('projects should populate', async() => {
     const projects = [
       {
-       projectName: 'project1',
-       projectUrl: 'github.com/project1',
-       templateValues: {
-         name: 'template_value_name_1',
-         value: 'template_value_1'
-       }
+        projectName: 'project1',
+        projectUrl: 'github.com/project1',
+        edit: false,
+        templateValues: {
+          name: 'template_value_name_1',
+          value: 'template_value_1'
+        }
       },
       {
         projectName: 'project2',
         projectUrl: 'github.com/project2',
+        edit: false,
         templateValues: {
           name: 'template_value_name_2',
           value: 'template_value_2'
@@ -62,9 +55,24 @@ describe('ProjectComponent', () => {
 
     const req = httpMock.expectOne('project');
     req.flush(projects);
-    await expect(req.request.method).toBe("GET");
+  });
+
+  afterEach(() => {
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('projects should populate', async() => {
     fixture.detectChanges();
     const text = fixture.debugElement.nativeElement.querySelector('#proj-url-0').textContent;
     expect(text).toBe('github.com/project1');
   })
+
+  it('Should select correct project', () => {
+    component.select(0);
+    const projectTitle = component.selectedProject.projectName;
+    expect(projectTitle).toBe('project1')
+  });
 });

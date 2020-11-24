@@ -5,13 +5,19 @@
     <th>Project URL</th>
     <th>Template values</th>
   </tr>
-  <tr *ngFor="let project of projects; let i = index;">
-    <td id="proj-name-{{i}}">{{project.projectName}}</td>
-    <td id="proj-url-{{i}}">{{project.projectUrl}}</td>
-    <td><button (click)="select(i);">template items</button></td>
+  <tr *ngFor="let project of projectsPersisted; let i = index;">
+    <td id="proj-name-{{i}}">
+      <span *ngIf="!project.edit">{{project.projectName}}</span>
+      <span *ngIf="project.edit"><input value="{{project.projectName}}"></span>
+    </td>
+    <td id="proj-url-{{i}}">
+      <span *ngIf="!project.edit">{{project.projectUrl}}</span>
+      <span *ngIf="project.edit"><input value="{{project.projectUrl}}"></span>
+    </td>
+    <td><button (click)="select(i);">template</button></td>
+    <td><button (click)="edit(i)">edit</button></td>
   </tr>
 </table>
-
 <table *ngIf="selectedProject" class="tableContainer table">
   <h2>Template values</h2>
   <h3>{{selectedProject.projectName}}</h3>
@@ -20,7 +26,19 @@
     <th>Value</th>
   </tr>
   <tr *ngFor="let template of selectedProject?.templateValues;">
-    <td>{{template.name}}</td>
-    <td>{{template.value}}</td>
+    <td>
+      <span *ngIf="!selectedProject.edit">{{template.name}}</span>
+      <span *ngIf="selectedProject.edit"><input value="{{template.name}}"/></span>
+    </td>
+    <td>
+      <span *ngIf="!selectedProject.edit">{{template.value}}</span>
+      <span *ngIf="selectedProject.edit"><input value="{{template.value}}"></span>
+    </td>
+  </tr>
+  <tr *ngIf="selectedProject.edit">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><button (click)="update()">update</button></td>
   </tr>
 </table>
