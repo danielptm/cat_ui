@@ -18,10 +18,8 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     console.log('starting');
     const x = this.http.get('project')
-      x.subscribe((response: any) => {
-        console.log('$$$$$$');
-        console.log(response);
-        this.projects = response;
+      x.subscribe((response: Project[]) => {
+        this.projects.push(response[0]);
       }, e => {
         console.log(e);
       });

@@ -6,8 +6,8 @@
     <th>Template values</th>
   </tr>
   <tr *ngFor="let project of projects; let i = index;">
-    <td id="proj-name-0">{{project.projectName}}</td>
-    <td>{{project.projectUrl}}</td>
+    <td id="proj-name-{{i}}">{{project.projectName}}</td>
+    <td id="proj-url-{{i}}">{{project.projectUrl}}</td>
     <td><button (click)="select(i);">template items</button></td>
   </tr>
 </table>
